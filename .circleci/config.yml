@@ -1,17 +1,8 @@
 version: 2.1
 
 commands:
-  sayhello:
-    description: "A very simple command for demonstration purposes"
-    parameters:
-      to:
-        type: string
-        default: "World"
-    steps:
-      - run: echo Hello << parameters.to >>
-
   destroy-environment:
-    description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
+    description: "Destroy back-end and front-end cloudformation stacks given a workflow ID."
     parameters:
       to:
         type: string 
@@ -30,7 +21,7 @@ commands:
             aws cloudformation delete-stack --stack-name udapeople-frontend-<< parameters.to >>
 
   revert-migrations:
-    description: Revert the last migration if successfully run in the current workflow.
+    description: "Revert the last migration if successfully run in the current workflow."
     parameters:
       # Add parameter here     
     steps:
@@ -180,9 +171,7 @@ jobs:
           root: ~/
           paths:
             - project/.circleci/ansible/inventory.txt
-      # - destroy-environment:
-      #     to: "${CIRCLE_WORKFLOW_ID:0:7}"
-      - sayhello: # invoke command "sayhello"
+      - destroy-environment:
           to: "${CIRCLE_WORKFLOW_ID:0:7}"
 
 #   configure-infrastructure:
