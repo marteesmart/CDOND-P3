@@ -1,6 +1,15 @@
 version: 2.1
 
 commands:
+  sayhello:
+    description: "A very simple command for demonstration purposes"
+    parameters:
+      to:
+        type: string
+        default: "World"
+    steps:
+      - run: echo Hello << parameters.to >>
+
   destroy-environment:
     description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
     parameters:
@@ -148,17 +157,17 @@ jobs:
           command: |
             aws cloudformation deploy \
               --template-file .circleci/files/backend.yml \
-              #--tags project=udapeople \
-              # --stack-name "udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}" \
-              # --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  
+              --tags project=udapeople \
+              --stack-name "udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}" \
+              --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  
       - run:
           name: Ensure front-end infrastructure exist
           command: |
             aws cloudformation deploy \
               --template-file .circleci/files/frontend.yml \
-              #--tags project=udapeople \
-              # --stack-name "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}" \
-              # --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  
+              --tags project=udapeople \
+              --stack-name "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}" \
+              --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  
       - run:
           name: Add back-end ip to ansible inventory
           command: |
@@ -171,8 +180,10 @@ jobs:
           root: ~/
           paths:
             - project/.circleci/ansible/inventory.txt
-      - destroy-environment:
-          to: "${CIRCLE_WORKFLOW_ID:0:7}"
+      # - destroy-environment:
+      #     to: "${CIRCLE_WORKFLOW_ID:0:7}"
+      - sayhello: # invoke command "sayhello"
+          to: "Lev"
 
 #   configure-infrastructure:
 #     docker:
