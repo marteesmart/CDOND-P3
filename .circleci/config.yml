@@ -297,16 +297,20 @@ jobs:
       - attach_workspace:
           at: ~/
       - run:
-          name: Install dependencies
+          name: Install dependencies (gzip,ansible, awscli)
           command: |
             apk add --update tar gzip
             apk add --update ansible
             pip install awscli
-            pip install sshtunnel
             aws --version
+      - run:
+          name: Install dependencies (nodejs)
+          command: |
             apk add --update nodejs
-            apk add --update npm
-            apk add curl
+      - run:
+          name: Install dependencies (sshtunnel)
+          command: |
+            pip install sshtunnel
       - run:
           name: Deploy backend
           command: |
