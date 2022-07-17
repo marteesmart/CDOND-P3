@@ -7,7 +7,6 @@ commands:
       to:
         type: string
     steps:
-      -run: 
       - run:
           name: Destroy backend environments
           command: |
