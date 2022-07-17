@@ -307,6 +307,7 @@ jobs:
           name: Install dependencies (nodejs)
           command: |
             apk add --update nodejs
+            apk add --update npm
       - run:
           name: Install dependencies (ssh)
           command: |
