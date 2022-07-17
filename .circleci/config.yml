@@ -53,12 +53,12 @@ commands:
             # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
             SUCCESS = $(curl --insecure  https://kvdb.io/BVHKbJE8Nhv6RqRydof55z/migration_${CIRCLE_WORKFLOW_ID:0:7})
             echo SUCCESS
-            if(( $SUCCESS == 1 )); 
-            then
-              cd ~/project/backend
-              npm install
-              npm run migrations:revert
-            fi
+            # if(( $SUCCESS == 1 )); 
+            # then
+            #   cd ~/project/backend
+            #   npm install
+            #   npm run migrations:revert
+            # fi
             
 jobs:
   build-frontend:
@@ -387,8 +387,8 @@ jobs:
             else
               return 1
             fi
-      - destroy-environment:
-          workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
+      # - destroy-environment:
+      #     workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
       - revert-migrations
 
 #   cloudfront-update:

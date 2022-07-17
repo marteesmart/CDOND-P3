@@ -5,12 +5,13 @@
     become: yes
     unarchive:
         src: files/artifact.tar.gz
-        dest: ~/
+        dest: /home/ubuntu
   - name: "start server"
     become: true
     shell: | 
-             npm install
-             pm2 stop default
-             sudo pm2 start npm -- start
+      cd /home/ubuntu
+      npm install
+      pm2 stop default
+      sudo pm2 start npm -- start
              
 
