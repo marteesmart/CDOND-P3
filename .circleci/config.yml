@@ -1,11 +1,8 @@
 version: 2.1
 
 commands:
-  destroy-environment2:
+  destroy-environment:
     description: "A very simple command for demonstration purposes"
-    parameters:
-      to:
-        type: string
     steps:
       - run:
           name: Destroy backend environments
@@ -191,8 +188,7 @@ jobs:
           root: ~/
           paths:
             - project/.circleci/ansible/inventory.txt
-      - destroy-environment2:
-          to: ${CIRCLE_WORKFLOW_ID:0:7}
+      - destroy-environment
 
 
 #   configure-infrastructure:
