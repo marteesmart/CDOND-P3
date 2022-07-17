@@ -263,7 +263,6 @@ jobs:
             apk add curl
             apk add --update nodejs
             apk add --update npm
-            apk add curl
       - run:
           name: Get backend url
           command: |
@@ -303,6 +302,7 @@ jobs:
             apk add --update ansible
             pip install awscli
             aws --version
+            apk add curl
       - run:
           name: Install dependencies (nodejs)
           command: |
@@ -315,7 +315,7 @@ jobs:
           name: Deploy backend
           command: |
             cd backend
-            npm i
+            npm install
             npm run build
             cd ..
             # Zip the directory
