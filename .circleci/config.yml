@@ -289,7 +289,7 @@ jobs:
                     
   deploy-backend:
     docker:
-      - image: python:3.7-alpine3.11
+      - image: python:3.7-alpine3.16
     steps:
       - checkout
       - add_ssh_keys:
@@ -307,10 +307,10 @@ jobs:
           name: Install dependencies (nodejs)
           command: |
             apk add --update nodejs
-      - run:
-          name: Install dependencies (sshtunnel)
-          command: |
-            pip install ssh
+      # - run:
+      #     name: Install dependencies (ssh)
+      #     command: |
+      #       pip install ssh
       - run:
           name: Deploy backend
           command: |
