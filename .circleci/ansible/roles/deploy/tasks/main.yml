@@ -4,7 +4,7 @@
   - name: "Extract Artifact"
     become: yes
     unarchive:
-        src: files/artifact.tar.gz
+        src: ~/ #files/artifact.tar.gz
         dest: ~/
   - name: "start server"
     become: true
