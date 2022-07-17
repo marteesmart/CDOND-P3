@@ -1,6 +1,5 @@
 ---
-
-- name: "configuration play." 
+- name: "update apt packages."
   hosts: web
   user: ubuntu
   become: true
