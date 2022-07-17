@@ -1,0 +1,15 @@
+---
+  - name: "The remote environment"
+    shell: env
+  - name: "Extract Artifact"
+    become: yes
+    unarchive:
+        src: files/artifact.tar.gz
+        dest: ~/
+  - name: "start server"
+    become: true
+    shell: | 
+             npm install
+             pm2 stop default
+             sudo pm2 start npm -- start
+             
