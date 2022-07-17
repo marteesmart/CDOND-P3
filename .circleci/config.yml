@@ -7,18 +7,19 @@ commands:
       to:
         type: string
     steps:
-      - run: echo Hello << parameters.to >>
-      # - run:
-      #     name: Destroy backend environments
-      #     when: on_fail
-      #     command: |
-      #       aws cloudformation delete-stack --stack-name udapeople-backend-<< parameters.to >>
-      # - run:
-      #     name: Destroy frontend environments
-      #     when: on_fail
-      #     command: |
-      #       aws s3 rm s3://udapeople-<< parameter.to >> -- recursive
-      #       aws cloudformation delete-stack --stack-name udapeople-frontend-<< parameters.to >>    
+      - run:
+          name: Destroy backend environments
+          command: |
+            aws cloudformation delete-stack --stack-name udapeople-backend-<< parameters.to >>
+          when: on_fail
+
+      - run:
+          name: Destroy frontend environments
+          command: |
+            aws s3 rm s3://udapeople-<< parameter.to >> -- recursive
+            aws cloudformation delete-stack --stack-name udapeople-frontend-<< parameters.to >>  
+          when: on_fail
+  
 
   # destroy-environment:
   #   description: "Destroy back-end and front-end cloudformation stacks given a workflow ID."
