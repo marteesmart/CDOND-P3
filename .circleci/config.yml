@@ -307,10 +307,10 @@ jobs:
           name: Install dependencies (nodejs)
           command: |
             apk add --update nodejs
-      # - run:
-      #     name: Install dependencies (ssh)
-      #     command: |
-      #       pip install ssh
+      - run:
+          name: Install dependencies (ssh)
+          command: |
+            apk add --update openssh-client git
       - run:
           name: Deploy backend
           command: |
