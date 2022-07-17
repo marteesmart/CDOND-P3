@@ -191,24 +191,25 @@ jobs:
       - destroy-environment
 
 
-#   configure-infrastructure:
-#     docker:
-#       # Docker image here that supports Ansible
-#     steps:
-#       # Checkout code from git
-#       # Add ssh keys with fingerprint
-#       # attach workspace
-#       - run:
-#           name: Install dependencies
-#           command: |
-#             # Your code here
-#             exit 1
-#       - run:
-#           name: Configure server
-#           command: |
-#             # Your code here
-#             exit 1
-#       # Here's where you will add some code to rollback on failure      
+  # configure-infrastructure:
+  #   docker:
+  #     - image: python:3.8-alpine3.16
+  #   steps:
+  #     - checkout
+  #     - add_ssh_keys:
+  #             fingerprints: ["93:ac:d8:41:4e:a8:54:6f:11:c9:94:88:f6:2f:ff:a4"] 
+  #     # attach workspace
+  #     - run:
+  #         name: Install dependencies
+  #         command: |
+  #           # Your code here
+  #           exit 1
+  #     - run:
+  #         name: Configure server
+  #         command: |
+  #           # Your code here
+  #           exit 1
+  #     # Here's where you will add some code to rollback on failure      
 
 #   run-migrations:
 #     docker:
