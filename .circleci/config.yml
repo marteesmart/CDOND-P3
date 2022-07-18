@@ -475,8 +475,6 @@ jobs:
           echo OldWorkflowID: "${OldWorkflowID}"
           echo $OldWorkflowID
 
- 
-
           #echo Stack names: "${STACKS[@]}"
 
     - run:
