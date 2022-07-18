@@ -485,14 +485,14 @@ jobs:
           OldWorkflowID=$(cat ~/project/OldWorkflowID.txt)
           echo $OldWorkflowID
 
-          if [[ "udapeople-${CIRCLE_WORKFLOW_ID:0:7}" != "${OldWorkflowID}" ]]
+          if [[ "udapeople-${CIRCLE_WORKFLOW_ID:0:7}" != "udapeople-${OldWorkflowID}" ]]
           then
             echo delete old stack
-            echo OldWorkflowID: "${OldWorkflowID}"
+            echo udapeople-${OldWorkflowID}
             aws s3 rm s3://"${OldWorkflowID}" --recursive
             aws cloudformation delete-stack --stack-name ${OldWorkflowID}
           else
-            echo no stack to delete
+            echo udapeople-$OldWorkflowID
           fi
             
 workflows:
