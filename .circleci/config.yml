@@ -421,7 +421,6 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            pip install -U awscli
             apk add --update tar gzip
       - attach_workspace:
           at: ~/
@@ -455,7 +454,6 @@ jobs:
     - run:
         name: Install dependencies
         command: |
-          pip install -U awscli
           apk add --update tar gzip
     - attach_workspace:
         at: ~/
