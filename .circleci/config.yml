@@ -447,7 +447,7 @@ jobs:
       - persist_to_workspace:
           root: ~/
           paths:
-            - project
+            - project/OldWorkflowID.txt
       - destroy-environment:
           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
       - revert-migrations
@@ -471,7 +471,7 @@ jobs:
         name: Get old stack workflow id
         command: |
           cat ~/project/OldWorkflowID.txt
-          OldWorkflowID=$(cat ~/projec/OldWorkflowID.txt)
+          OldWorkflowID=$(cat ~/project/OldWorkflowID.txt)
           echo OldWorkflowID: "${OldWorkflowID}"
           echo $OldWorkflowID
 
