@@ -421,10 +421,12 @@ jobs:
       - checkout
       - attach_workspace:
           at: ~/
-      # - run:
-      #     name: Install dependencies
-      #     command: |
-      #       # your code here
+      - run:
+          name: Install dependencies
+          command: |
+            pip install -U awscli
+            apk add --update tar gzip
+
       - run:
           name: Update cloudfront distribution
           command: |
@@ -454,6 +456,11 @@ jobs:
     - checkout
     - attach_workspace:
         at: ~/
+    - run:
+        name: Install dependencies
+        command: |
+          pip install -U awscli
+          apk add --update tar gzip
     - run:
         name: Get old stack workflow id
         command: |
