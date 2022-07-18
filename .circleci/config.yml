@@ -415,13 +415,17 @@ jobs:
 
   cloudfront-update:
     docker:
-      - image: amazon/aws-cli
+      - image: python:3.7-alpine3.16
     steps:
       - checkout
       - run:
           name: Install dependencies
           command: |
             apk add --update tar gzip
+            apk add --update ansible
+            pip install awscli
+            pip install -U awscli
+            aws --version
       - attach_workspace:
           at: ~/
       - run:
@@ -448,13 +452,17 @@ jobs:
 
   cleanup:
     docker:
-      - image: amazon/aws-cli
+      - image: python:3.7-alpine3.16
     steps:
     - checkout
     - run:
         name: Install dependencies
         command: |
           apk add --update tar gzip
+          apk add --update ansible
+          pip install awscli
+          pip install -U awscli
+          aws --version
     - attach_workspace:
         at: ~/
     - run:
