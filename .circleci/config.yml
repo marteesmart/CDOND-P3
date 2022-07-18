@@ -419,6 +419,8 @@ jobs:
       - image: amazon/aws-cli
     steps:
       - checkout
+      - attach_workspace:
+          at: ~/
       # - run:
       #     name: Install dependencies
       #     command: |
@@ -426,11 +428,21 @@ jobs:
       - run:
           name: Update cloudfront distribution
           command: |
+            export OldWorkflowID=$(aws cloudformation \
+            list-exports --query "Exports[?Name==\`WorkflowID\`].Value" \
+            --no-paginate --output text)
+            echo $OldWorkflowID >> ~/OldWorkflowID.txt
+            cat ~/OldWorkflowID.txt
+
             aws cloudformation deploy \
             --template-file .circleci/files/cloudfront.yml \
             --stack-name udapeople-4527 \
             --parameter-overrides WorkflowID="udapeople-${CIRCLE_WORKFLOW_ID:0:7}" \
             --tags project=udapeople
+            
+            echo OldWorkflowID: "${OldWorkflowID}"
+            echo current workflowID: ${CIRCLE_WORKFLOW_ID:0:7}
+
       - destroy-environment:
           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
       - revert-migrations
@@ -440,9 +452,16 @@ jobs:
         - image: amazon/aws-cli
       steps:
         - checkout
+      - attach_workspace:
+          at: ~/
         - run:
             name: Get old stack workflow id
             command: |
+              cat ~/OldWorkflowID.txt
+              OldWorkflowID=$(cat ~/OldWorkflowID.txt)
+              echo OldWorkflowID: "${OldWorkflowID}"
+              echo $OldWorkflowID
+
               export OldWorkflowID=$(aws cloudformation \
               list-exports --query "Exports[?Name==\`WorkflowID\`].Value" \
               --no-paginate --output text)
@@ -456,8 +475,11 @@ jobs:
             command: |
               if [[ "${STACKS[@]}" =~ "${OldWorkflowID}" ]]
               then
-                aws s3 rm "s3://udapeople-${OldWorkflowID}" --recursive
+                echo delete old stack
+                aws s3 rm "s3://${OldWorkflowID}" --recursive
                 aws cloudformation delete-stack --stack-name ${OldWorkflowID}
+              else
+                echo no stack to delete
               fi
               
 
