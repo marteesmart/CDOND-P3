@@ -444,7 +444,7 @@ jobs:
               --no-paginate --output text)
 
               export STACKS=($(aws cloudformation list-stacks --query "StackSummaries[*].StackName" \
-              --stack-status-filter CREATE_COMPLETE --no-paginate --output text)) 
+              --stack-status-filter UPDATE_COMPLETE --no-paginate --output text)) 
               echo Stack names: "${STACKS[@]}"
 
         - run:
@@ -452,8 +452,8 @@ jobs:
             command: |
               if [[ "${STACKS[@]}" =~ "${OldWorkflowID}" ]]
               then
-                aws s3 rm "s3://${OldWorkflowID}" --recursive
-                aws cloudformation delete-stack --stack-name InitialStack
+                aws s3 rm "s3://udapeople-${OldWorkflowID}" --recursive
+                aws cloudformation delete-stack --stack-name ${OldWorkflowID}
               fi
               
 
