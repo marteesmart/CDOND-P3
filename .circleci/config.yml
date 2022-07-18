@@ -217,7 +217,6 @@ jobs:
           command: |
             apk add --update ansible
             pip install awscli
-            pip install -U awscli
             aws --version
       - run:
           name: Configure server
