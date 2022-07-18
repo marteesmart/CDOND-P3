@@ -18,8 +18,7 @@ commands:
           name: Destroy frontend environments
           when: on_fail
           command: |
-            pip install -U awscli
-            aws s3 rm s3://udapeople-<< parameters.workflow_id >> -- recursive
+            aws s3 rm s3://udapeople-<< parameters.workflow_id >> # -- recursive
             aws cloudformation delete-stack --stack-name udapeople-frontend-<< parameters.workflow_id >>
   
 
@@ -419,14 +418,13 @@ jobs:
       - image: amazon/aws-cli
     steps:
       - checkout
-      - attach_workspace:
-          at: ~/
       - run:
           name: Install dependencies
           command: |
             pip install -U awscli
             apk add --update tar gzip
-
+      - attach_workspace:
+          at: ~/
       - run:
           name: Update cloudfront distribution
           command: |
@@ -454,13 +452,13 @@ jobs:
       - image: amazon/aws-cli
     steps:
     - checkout
-    - attach_workspace:
-        at: ~/
     - run:
         name: Install dependencies
         command: |
           pip install -U awscli
           apk add --update tar gzip
+    - attach_workspace:
+        at: ~/
     - run:
         name: Get old stack workflow id
         command: |
