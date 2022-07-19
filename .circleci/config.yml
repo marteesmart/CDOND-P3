@@ -478,6 +478,7 @@ jobs:
 
     #       #echo Stack names: "${STACKS[@]}"
 
+
     - run:
         name: Remove old stacks and files
         command: |
