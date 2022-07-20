@@ -446,7 +446,7 @@ jobs:
 
             aws cloudformation deploy \
             --template-file .circleci/files/cloudfront.yml \
-            --stack-name udapeople-4527 \
+            --stack-name udapeople-${CIRCLE_WORKFLOW_ID:0:7} \
             --parameter-overrides WorkflowID="udapeople-${CIRCLE_WORKFLOW_ID:0:7}" \
             --tags project=udapeople
             
@@ -494,14 +494,14 @@ jobs:
           OldWorkflowID=$(cat ~/project/OldWorkflowID.txt)
           echo $OldWorkflowID
 
-          if [[ "udapeople-${CIRCLE_WORKFLOW_ID:0:7}" != "udapeople-${OldWorkflowID}" ]]
+          if [[ "udapeople-${CIRCLE_WORKFLOW_ID:0:7}" != "${OldWorkflowID}" ]]
           then
-            echo udapeople-${OldWorkflowID}
+            echo ${OldWorkflowID}
             echo delete stack
             aws s3 rm s3://"${OldWorkflowID}" --recursive
-            aws cloudformation delete-stack --stack-name udapeople-${OldWorkflowID}
+            aws cloudformation delete-stack --stack-name ${OldWorkflowID}
           else
-            echo udapeople-$OldWorkflowID
+            echo $OldWorkflowID
             echo no delete stack
           fi
 
